@@ -410,7 +410,8 @@ function recalcularProyeccionesSiguientes(ruta, puntoActualId, horaRealActual) {
 }
 
 // ===== FUNCIONES DE VALIDACIÓN =====
-function evaluarRetrasoSalida() {
+// ===== FUNCIONES DE VALIDACIÓN =====
+function evaluarRetrasoSalida() { //cambio especifico en esta funcion. 
     const salidaProgramada = document.getElementById('salida_programada');
     const salidaReal = document.getElementById('salida_real');
     const retrasoContainer = document.getElementById('retraso-salida-container');
@@ -422,6 +423,7 @@ function evaluarRetrasoSalida() {
 
     if (salidaProgramadaVal && salidaRealVal) {
         const minutosRetraso = diffInMinutes(salidaProgramadaVal, salidaRealVal);
+        // ✅ CORRECCIÓN: Considerar minuto de gracia (retraso > 1 minuto)
         if (minutosRetraso > 1) {
             retrasoContainer.style.display = 'block';
         } else {
@@ -429,6 +431,7 @@ function evaluarRetrasoSalida() {
         }
     }
 }
+
 
 function validarLlegadaFinal(ruta) {
     const ultimoId = CONFIG_MEDELLIN_SUR.CONFIG_PUNTOS_CONTROL[ruta][CONFIG_MEDELLIN_SUR.CONFIG_PUNTOS_CONTROL[ruta].length - 1].id;
@@ -441,7 +444,7 @@ function validarLlegadaFinal(ruta) {
 }
 
 // ===== FUNCIÓN DE CLASIFICACIÓN =====
-function clasificarViaje(ruta, salidaProgramada, salidaReal, puntosControlData) {
+function clasificarViaje(ruta, salidaProgramada, salidaReal, puntosControlData) { /// cambio en la funcion 
     const ultimoPunto = puntosControlData[puntosControlData.length - 1];
     const llegadaReal = ultimoPunto.hora_real;
     const tiempoTotal = diffInMinutes(salidaReal, llegadaReal);
@@ -451,6 +454,7 @@ function clasificarViaje(ruta, salidaProgramada, salidaReal, puntosControlData) 
     const motivoLlegada = ultimoPunto.motivo;
 
     const retrasoSalidaMin = diffInMinutes(salidaProgramada, salidaReal);
+    // ✅ CORRECCIÓN: Considerar minuto de gracia (retraso > 1 minuto)
     const retrasoSalida = retrasoSalidaMin > 1;
     const justificadoSalida = document.querySelector('input[name="retraso_salida_justificado"]:checked')?.value === 'si';
 
@@ -484,8 +488,7 @@ function clasificarViaje(ruta, salidaProgramada, salidaReal, puntosControlData) 
         motivo_retraso_llegada: motivoLlegada,
         puntos_control_detalle: puntosControlData
     };
-}
-
+} /// cambio en esta funcion. 
 function inicializarEventosFormulario() {
     const rutaSelect = document.getElementById('ruta');
     const salidaProgramada = document.getElementById('salida_programada');
