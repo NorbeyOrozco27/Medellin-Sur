@@ -861,7 +861,7 @@ async function cargarInformeAdvertencias() {
             const retrasoSalida = salidaRealMins - salidaProgramadaMins > 0 ? salidaRealMins - salidaProgramadaMins : 0;
 
             // Verificar salida injustificada
-            if (retrasoSalida > 0 && !viaje.retraso_salida_justificado) {
+            if (retrasoSalida > 1 && !viaje.retraso_salida_justificado) {
                 hayInfraccionInjustificada = true;
             }
 
@@ -980,7 +980,7 @@ async function cargarInformeDescargos() {
             const retrasoSalida = salidaRealMins - salidaProgramadaMins > 0 ? salidaRealMins - salidaProgramadaMins : 0;
 
             // Verificar salida injustificada
-            if (retrasoSalida > 0 && !viaje.retraso_salida_justificado) {
+            if (retrasoSalida > 1 && !viaje.retraso_salida_justificado) {
                 hayInfraccionInjustificada = true;
             }
 
@@ -1329,7 +1329,7 @@ async function cargarRegistros() {
             const justificadoSalida = viaje.retraso_salida_justificado || false;
             const hayPuntoInjustif = viaje.puntos_control_detalle ? viaje.puntos_control_detalle.some(p => p.estado === 'tarde' && p.justificado === 'no') : false;
             
-            if ((retrasoSalida > 0 && !justificadoSalida) || hayPuntoInjustif) {
+            if ((retrasoSalida > 1 && !justificadoSalida) || hayPuntoInjustif) {
                 hayInfraccion = true;
 
                 const conductor = viaje.conductores_medellin_sur?.nombre || 'Desconocido';
